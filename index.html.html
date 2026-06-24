@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<meta charset="UTF-8">
+
+<title>Ali Game</title>
+
+<style>
+
+body{
+
+    font-family: Arial;
+
+    text-align:center;
+
+    background:#222;
+
+    color:white;
+
+}
+
+button{
+
+    padding:10px;
+
+    margin:5px;
+
+}
+
+</style>
+
+</head>
+
+<body>
+
+<h1>🎮 Ali Game</h1>
+
+<h2 id="money">Money: 100 DH</h2>
+
+<h2 id="points">Points: 0</h2>
+
+<h2 id="xp">XP: 0</h2>
+
+<h2 id="level">Level: 1</h2>
+
+<input type="number" id="guess" min="1" max="10">
+
+<button onclick="play()">Jouer</button>
+
+<h3 id="result"></h3>
+
+<hr>
+
+<h2>🛒 Boutique</h2>
+
+<button onclick="buyPoints()">+10 Points (50 DH)</button>
+
+<button onclick="buyXP()">+50 XP (80 DH)</button>
+
+<button onclick="buyLevel()">+1 Level (150 DH)</button>
+
+<script>
+
+let money = 100;
+
+let points = 0;
+
+let xp = 0;
+
+let level = 1;
+
+function update()
+
+{
+
+    document.getElementById("money").innerText="Money: "+money+" DH";
+
+    document.getElementById("points").innerText="Points: "+points;
+
+    document.getElementById("xp").innerText="XP: "+xp;
+
+    document.getElementById("level").innerText="Level: "+level;
+
+}
+
+function play()
+
+{
+
+    let secret=Math.floor(Math.random()*10)+1;
+
+    let guess=parseInt(document.getElementById("guess").value);
+
+    if(guess===secret)
+
+    {
+
+        points+=10;
+
+        money+=50;
+
+        xp+=20;
+
+        document.getElementById("result").innerText=
+
+        "Bravo! Le nombre était "+secret;
+
+    }
+
+    else
+
+    {
+
+        money-=20;
+
+        document.getElementById("result").innerText=
+
+        "Perdu! Le nombre était "+secret;
+
+    }
+
+    if(xp>=100) level=2;
+
+    if(xp>=200) level=3;
+
+    if(xp>=300) level=4;
+
+    update();
+
+}
+
+function buyPoints()
+
+{
+
+    if(money>=50)
+
+    {
+
+        money-=50;
+
+        points+=10;
+
+        update();
+
+    }
+
+}
+
+function buyXP()
+
+{
+
+    if(money>=80)
+
+    {
+
+        money-=80;
+
+        xp+=50;
+
+        update();
+
+    }
+
+}
+
+function buyLevel()
+
+{
+
+    if(money>=150)
+
+    {
+
+        money-=150;
+
+        level++;
+
+        update();
+
+    }
+
+}
+
+update();
+
+</script>
+
+</body>
+
+</html>
